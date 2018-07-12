@@ -1,0 +1,37 @@
+{
+  "name": "common-routes",
+  "version": "0.1.0",
+  "description": "simple express/knex/bookshelf util for common routes",
+  "main": "src/common-routes.js",
+  "scripts": {
+    "test": "mocha --timeout --exit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sombriks/common-routes.git"
+  },
+  "keywords": [
+    "common-routes",
+    "express",
+    "knex",
+    "bookshelf"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sombriks/common-routes/issues"
+  },
+  "homepage": "https://github.com/sombriks/common-routes#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "bookshelf": "^0.13.3",
+    "express": "^4.16.3",
+    "knex": "^0.15.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.2"
+  }
+}
