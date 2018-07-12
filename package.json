@@ -4,7 +4,10 @@
   "description": "simple express/knex/bookshelf util for common routes",
   "main": "src/common-routes.js",
   "scripts": {
-    "test": "mocha --timeout --exit"
+    "test": "make testing",
+    "publish": "make release",
+    "dist": "make release",
+    "release": "make release"
   },
   "repository": {
     "type": "git",
