@@ -1,5 +1,7 @@
 # common-routes
 
+[![npm version](https://badge.fury.io/js/common-routes.svg)](https://www.npmjs.com/package/common-routes) [![GitHub issues](https://img.shields.io/github/issues/sombriks/common-routes.svg)](https://github.com/sombriks/common-routes/issues)
+
 Simple express/knex/bookshelf util for common routes
 
 ## Install
