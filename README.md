@@ -1,6 +1,8 @@
 # common-routes
 
-[![npm version](https://badge.fury.io/js/common-routes.svg)](https://www.npmjs.com/package/common-routes) [![GitHub issues](https://img.shields.io/github/issues/sombriks/common-routes.svg)](https://github.com/sombriks/common-routes/issues)
+[![npm version](https://badge.fury.io/js/common-routes.svg)](https://www.npmjs.com/package/common-routes) 
+[![GitHub issues](https://img.shields.io/github/issues/sombriks/common-routes.svg)](https://github.com/sombriks/common-routes/issues)
+[![Coverage Status](https://coveralls.io/repos/github/sombriks/common-routes/badge.svg?branch=master)](https://coveralls.io/github/sombriks/common-routes?branch=master)
 
 Simple express/knex/bookshelf util for common routes
 
