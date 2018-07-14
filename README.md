@@ -1,6 +1,7 @@
 # common-routes
 
-[![npm version](https://badge.fury.io/js/common-routes.svg)](https://www.npmjs.com/package/common-routes) 
+[![NPM](https://nodei.co/npm/common-routes.png?compact=true)](https://npmjs.org/package/common-routes)
+
 [![GitHub issues](https://img.shields.io/github/issues/sombriks/common-routes.svg)](https://github.com/sombriks/common-routes/issues)
 [![Build Status](https://travis-ci.org/sombriks/common-routes.svg?branch=master)](https://travis-ci.org/sombriks/common-routes)
 
