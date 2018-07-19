@@ -5,7 +5,9 @@
 [![GitHub issues](https://img.shields.io/github/issues/sombriks/common-routes.svg)](https://github.com/sombriks/common-routes/issues)
 [![Build Status](https://travis-ci.org/sombriks/common-routes.svg?branch=master)](https://travis-ci.org/sombriks/common-routes)
 
-Simple express/knex/bookshelf util for common routes
+Simple express/knex/bookshelf util for common routes that emerge on every rest api.
+
+See [docs](docs/OVERVIEW.md) for more details.
 
 ## Install
 
@@ -25,20 +27,26 @@ const router = require("express").Router();
 const Area = Bookshelf.Model.extend({
   idAttribute: "idarea",
   tableName: "area",
-  state(){
-    return this.belongsTo(require("./state").State,"idstate");
+  state() {
+    return this.belongsTo(require("./state").State, "idstate");
   }
 });
 
-const withRelated = ["state"]
+const withRelated = ["state"];
 
-commonRoutes.apply(router, Area, withRelated, (qb, query) => {
-  if (query.textoBusca) {
-    let s = query.textoBusca;
-    qb.where("descricao", "ilike", `%${s}%`);
-  }
-  delete query.textoBusca;
-},"-dtcreationarea");
+commonRoutes.apply(
+  router,
+  Area,
+  withRelated,
+  (qb, query) => {
+    if (query.textoBusca) {
+      let s = query.textoBusca;
+      qb.where("descricao", "ilike", `%${s}%`);
+    }
+    delete query.textoBusca;
+  },
+  "-dtcreationarea"
+);
 
 module.exports = {
   router,
@@ -56,19 +64,20 @@ const app = express();
 
 app.use(json());
 
-app.use("/area",require("./routes/area").router);
+app.use("/area", require("./routes/area").router);
 
 // ...
-
 ```
 
 Once you pass this router to your express app, the following routes will be available:
 
-| route       | verb    | purpose                                                             |
-| ----------- | ------- | ------------------------------------------------------------------- |
-| /area/list  | GET     | Lists all entities. Can pass page and pageSize as query parameters. |
-| /area/count | GET     | Counts all entities.                                                |
-| /area/:id   | GET     | Gets one entity.                                                    |
-| /area/save  | POST    | Inserts a new entity.                                               |
-| /area/save  | PUT     | Updates an entity. It must have a valid ID                          |
-| /area/:id   | DELETE  | Detetes one entity.                                                 |
+| route       | verb   | purpose                                                             |
+| ----------- | ------ | ------------------------------------------------------------------- |
+| /area/list  | GET    | Lists all entities. Can pass page and pageSize as query parameters. |
+| /area/count | GET    | Counts all entities.                                                |
+| /area/:id   | GET    | Gets one entity.                                                    |
+| /area/save  | POST   | Inserts a new entity.                                               |
+| /area/save  | PUT    | Updates an entity. It must have a valid ID                          |
+| /area/:id   | DELETE | Detetes one entity.                                                 |
+
+See [docs](docs/OVERVIEW.md) for more details.
