@@ -22,12 +22,15 @@ const applyList = (router, BsModel, withRelated, searchClause, orderClause) => {
     let pageSize = query.pageSize || 10;
     delete query.pageSize;
 
+    if (orderClause) {
+      if (typeof orderClause == "function") bsQuery.orderBy(orderClause(query));
+      else bsQuery.orderBy(orderClause);
+    }
+
     let bsQuery = BsModel.where(qb => {
       if (searchClause) searchClause(qb, query);
       qb.where(query);
     });
-
-    if (orderClause) bsQuery.orderBy(orderClause);
 
     return bsQuery.fetchPage({ page, pageSize, withRelated });
   };
@@ -52,7 +55,7 @@ const applyCount = (router, BsModel, searchClause) => {
 
   router.get("/count", (req, res) =>
     listPage(req.query)
-      .then(ret => res.send(ret))
+      .then(ret => res.send({ count: ret }))
       .catch(errfn(res))
   );
 };

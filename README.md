@@ -7,7 +7,7 @@
 
 Simple express/knex/bookshelf util for common routes that emerge on every rest api.
 
-See [docs](docs/OVERVIEW.md) for more details.
+**See [docs](docs/OVERVIEW.md) for more details.**
 
 ## Install
 
@@ -80,4 +80,4 @@ Once you pass this router to your express app, the following routes will be avai
 | /area/save  | PUT    | Updates an entity. It must have a valid ID                          |
 | /area/:id   | DELETE | Detetes one entity.                                                 |
 
-See [docs](docs/OVERVIEW.md) for more details.
+**See [docs](docs/OVERVIEW.md) for more details.**

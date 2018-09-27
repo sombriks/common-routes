@@ -16,7 +16,7 @@ const app = express();
 
 app.use(json());
 
-// call the car router
+// call the car router. You can see car.js further
 app.use("/car", require("./routes/car").router);
 
 module.exports = { app };
@@ -47,14 +47,75 @@ It exports a few functions:
 - applyDel(router, BsModel)
 - errfn(res)
 
-The searchClause is special since it aims to help on filter results:
+### searchClause(queryBuilder, queryParameters)
 
-## searchClause(queryBuilder, queryParameters)
+The searchClause is special since it aims to help on filter results:
 
 | Argument        | Meaning                                          |
 | --------------- | ------------------------------------------------ |
 | queryBuilder    | knex queryBuilder from Bookshelf's Model.where() |
 | queryParameters | req.query from expressjs                         |
+
+Example:
+
+```javascript
+const searchClause = (qb, query) => {
+  // textoBusca is a custom parameter which does not exists on the database
+  if (query.textoBusca) {
+    qb.where("resumoconvite", "ilike", `%${query.textoBusca}%`)
+      // doing a subquery in order to filter by related entities
+      .orWhereIn(
+        "idconvite",
+        knex("convidado")
+          .select("idconvite")
+          .where("nomeconvidado", "ilike", `%${query.textoBusca}%`)
+      );
+  }
+  delete query.textoBusca;
+};
+```
+
+### orderClause(queryParameters)
+
+The orderClause might be a simple string or a function which returns the column
+to be used in order to sort the resulting list.
+
+Since bookshelf understands "-dtcriacao" and "dtcriacao" as valid
+order by options (as long as dtcriacao is a valid column name into the table),
+you can return the column name with or without the minus to change from
+ascending to descending.
+
+| Argument        | Meaning                  |
+| --------------- | ------------------------ |
+| queryParameters | req.query from expressjs |
+
+Example:
+
+```javascript
+const orderClause = query => {
+  // choose between ascending or descending
+  let direction = "-";
+  if (query.asc) {
+    direction = "";
+  }
+  delete query.asc;
+
+  // informing the sorting column
+  let attr = "dtcriacao";
+  if (query.orderby) {
+    attr = orderby;
+  }
+  delete orderby;
+
+  // return the orderby parameter
+  return direction + attr;
+};
+```
+
+Then you pass it to your apply function:
+
+If you don't need to dynamically chance the orderby option, the following
+example
 
 ## apply(router, BsModel, withRelated, searchClause, orderClause)
 
@@ -131,13 +192,19 @@ The express router will accept the following paths out of the box:
 
 Installs only the count verb.
 
-Must provide the same searchclause used to list otherwise may result an 
+Must provide the same searchclause used to list otherwise may result an
 incorrect count.
 
 | route                | verb |
 | -------------------- | ---- |
 | /count               | GET  |
 | /count?max_year=1984 | GET  |
+
+The returning payload is a JSON object with an attribute called _count_:
+
+```json
+{ "count": 13 }
+```
 
 ## applyFind(router, BsModel, withRelated)
 
@@ -170,4 +237,3 @@ Does not uses any query parameter.
 ## errfn(res)
 
 Helper to catch erros and send them as internal server error (500) to the client.
-
