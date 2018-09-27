@@ -22,15 +22,15 @@ const applyList = (router, BsModel, withRelated, searchClause, orderClause) => {
     let pageSize = query.pageSize || 10;
     delete query.pageSize;
 
-    if (orderClause) {
-      if (typeof orderClause == "function") bsQuery.orderBy(orderClause(query));
-      else bsQuery.orderBy(orderClause);
-    }
-
     let bsQuery = BsModel.where(qb => {
       if (searchClause) searchClause(qb, query);
       qb.where(query);
     });
+
+    if (orderClause) {
+      if (typeof orderClause == "function") bsQuery.orderBy(orderClause(query));
+      else bsQuery.orderBy(orderClause);
+    }
 
     return bsQuery.fetchPage({ page, pageSize, withRelated });
   };
