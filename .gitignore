@@ -1,2 +1,3 @@
 node_modules
 foo.db
+.nyc_output
