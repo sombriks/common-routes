@@ -1,6 +1,6 @@
 {
   "name": "common-routes",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "simple express/knex/bookshelf util for common routes",
   "main": "src/common-routes.js",
   "scripts": {
