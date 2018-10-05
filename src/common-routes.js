@@ -29,16 +29,21 @@ const applyList = (router, BsModel, withRelated, searchClause, orderClause) => {
 
     if (orderClause) {
       if (typeof orderClause == "function") bsQuery.orderBy(orderClause(query));
+      // istanbul ignore next
       else bsQuery.orderBy(orderClause);
     }
 
-    return bsQuery.fetchPage({ page, pageSize, withRelated });
+    return bsQuery.fetchPage({
+      withRelated,
+      pageSize,
+      page,
+    });
   };
 
   router.get("/list", (req, res) =>
     listPage(req.query)
-      .then(ret => res.send(ret))
-      .catch(errfn(res))
+    .then(ret => res.send(ret))
+    .catch(errfn(res))
   );
 };
 
@@ -55,30 +60,36 @@ const applyCount = (router, BsModel, searchClause) => {
 
   router.get("/count", (req, res) =>
     listPage(req.query)
-      .then(ret => res.send({ count: ret }))
-      .catch(errfn(res))
+    .then(ret => res.send({
+      count: ret
+    }))
+    .catch(errfn(res))
   );
 };
 
 const applyFind = (router, BsModel, withRelated) => {
   const idAttribute = BsModel.prototype.idAttribute;
 
-  const find = id => BsModel.query("where", idAttribute, id).fetch({ withRelated });
+  const find = id => BsModel.query("where", idAttribute, id).fetch({
+    withRelated
+  });
 
   router.get("/:id", (req, res) =>
     find(req.params.id)
-      .then(ret => res.send(ret))
-      .catch(errfn(res))
+    .then(ret => res.send(ret))
+    .catch(errfn(res))
   );
 };
 
 const applyInsert = (router, BsModel) => {
-  const insert = data => new BsModel(data).save();
+  const insert = data => new BsModel(data).save(null, {
+    method: "insert"
+  });
 
   router.post("/save", (req, res) =>
     insert(req.body)
-      .then(ret => res.send(ret))
-      .catch(errfn(res))
+    .then(ret => res.send(ret))
+    .catch(errfn(res))
   );
 };
 
@@ -88,25 +99,29 @@ const applyUpdate = (router, BsModel) => {
   const update = data => {
     let up = {};
     up[idAttribute] = data[idAttribute];
-    return new BsModel(up).save(data);
+    return new BsModel(up).save(data, {
+      method: "update"
+    });
   };
 
   router.put("/save", (req, res) =>
     update(req.body)
-      .then(ret => res.send(ret))
-      .catch(errfn(res))
+    .then(ret => res.send(ret))
+    .catch(errfn(res))
   );
 };
 
 const applyDel = (router, BsModel) => {
   const idAttribute = BsModel.prototype.idAttribute;
 
-  const del = id => BsModel.query("where", idAttribute, id).destroy();
+  const del = id => BsModel.query("where", idAttribute, id).destroy({
+    require: false
+  });
 
   router["delete"]("/:id", (req, res) =>
     del(req.params.id)
-      .then(ret => res.send(ret))
-      .catch(errfn(res))
+    .then(ret => res.send(ret))
+    .catch(errfn(res))
   );
 };
 

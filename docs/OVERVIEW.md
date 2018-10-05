@@ -210,21 +210,31 @@ The returning payload is a JSON object with an attribute called _count_:
 
 Installs the find (as in 'findOne') verb.
 
-Does not uses any query parameter.
+Does not uses any query parameter, however finds the idattribute for the
+provided model into the path parameter **:id** as folows:
+
+| route | verb |
+| ----- | ---- |
+| /7    | GET  |
+
+This path returns the entity which id is 7.
 
 ## applyInsert(router, BsModel)
 
 Installs the insert verb.
 
-The insert verb demands the json() body-parser middleware in order to work properly.
+The insert verb demands the **json body-parser middleware** in order to 
+work properly.
 
-Does not uses any query parameter.
+Does not uses any query parameter, relying on body payload to get the 
+insert values.
 
 ## applyUpdate(router, BsModel) and applyDel(router, BsModel)
 
 Installs the update verb.
 
-The update verb demands the json() body-parser middleware in order to work properly.
+The update verb demands the json() body-parser middleware in order to 
+work properly.
 
 Does not uses any query parameter.
 
@@ -236,4 +246,5 @@ Does not uses any query parameter.
 
 ## errfn(res)
 
-Helper to catch erros and send them as internal server error (500) to the client.
+Helper to catch errors and send them as internal server error (500) to 
+the client.

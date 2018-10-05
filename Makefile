@@ -4,7 +4,7 @@ export TIME_RELEASE := $(shell /bin/date "+%Y-%m-%d_%H-%M-%S")
 export VERSION := $(shell node -e "console.log(require('./package.json').version)")
 
 testing: 
-	mocha --timeout --exit
+	nyc mocha --timeout 10000 --exit
 
 release: 
 	echo $(TIME_RELEASE) > .latest_release ; 

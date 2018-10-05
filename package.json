@@ -25,16 +25,17 @@
     "url": "https://github.com/sombriks/common-routes/issues"
   },
   "homepage": "https://github.com/sombriks/common-routes#readme",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "body-parser": "^1.18.3",
     "bookshelf": "^0.13.3",
-    "express": "^4.16.3",
-    "knex": "^0.15.0"
-  },
-  "devDependencies": {
+    "bookshelf-page": "^0.3.2",
     "chai": "^4.1.2",
     "chai-http": "^4.0.0",
+    "express": "^4.16.3",
+    "knex": "^0.15.2",
     "mocha": "^5.2.0",
-    "nyc": "^12.0.2"
+    "nyc": "^12.0.2",
+    "sqlite3": "^4.0.2"
   }
 }

@@ -16,6 +16,13 @@ Simple express/knex/bookshelf util for common routes that emerge on every rest a
 npm install common-routes --save
 ```
 
+## Dependencies
+
+- Express (with body-parser/json middleware)
+- Bookshelf (and the bookshelf-page plugin)
+- Knex
+- the sql driver for your database
+
 ## Usage
 
 ```javascript
@@ -71,13 +78,13 @@ app.use("/area", require("./routes/area").router);
 
 Once you pass this router to your express app, the following routes will be available:
 
-| route       | verb   | purpose                                                             |
-| ----------- | ------ | ------------------------------------------------------------------- |
-| /area/list  | GET    | Lists all entities. Can pass page and pageSize as query parameters. |
-| /area/count | GET    | Counts all entities.                                                |
-| /area/:id   | GET    | Gets one entity.                                                    |
-| /area/save  | POST   | Inserts a new entity.                                               |
-| /area/save  | PUT    | Updates an entity. It must have a valid ID                          |
-| /area/:id   | DELETE | Detetes one entity.                                                 |
+| route       | verb   | purpose                                                                       |
+| ----------- | ------ | ----------------------------------------------------------------------------- |
+| /area/list  | GET    | Lists all areas. Can pass page and pageSize as query parameters.              |
+| /area/count | GET    | Counts all areas.                                                             |
+| /area/:id   | GET    | Gets one area by id. the real name of the key column the model already knows. |
+| /area/save  | POST   | Inserts a new entity.                                                         |
+| /area/save  | PUT    | Updates an entity. It must have a valid ID                                    |
+| /area/:id   | DELETE | Detetes one entity. with the given id                                         |
 
 **See [docs](docs/OVERVIEW.md) for more details.**
